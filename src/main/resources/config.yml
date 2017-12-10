@@ -1,0 +1,15 @@
+config:
+  #mysqlSetup
+  host: hostName
+  port: portNumber
+  database: databaseName
+  username: userName
+  password: password
+  table: tableName
+
+
+  #skillLevelUpに必要なKill数(skillLevel * killAmount <= skillKill)
+  killAmount: 10
+
+  #skillLevelに対する攻撃力の設定(skillLevel * damageAmount = attackDamage)
+  damageAmount: 0.5

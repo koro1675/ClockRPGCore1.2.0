@@ -1,0 +1,5 @@
+name: ClockRPGCore
+version: ${project.version}
+main: clockrpg.core.ClockRPGCore
+commands:
+  crpg:
