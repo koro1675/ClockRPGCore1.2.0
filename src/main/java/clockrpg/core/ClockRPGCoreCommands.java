@@ -180,6 +180,8 @@ public class ClockRPGCoreCommands implements CommandExecutor {
                 return false;
             }
         }
+
+        //何も当てはまらなかった場合のHelp
         player.sendMessage(plugin.prefix + "§3§l/crpg [info, normalPlayer, redPlayer, blackPlayer, killCounter]");
         return false;
     }
