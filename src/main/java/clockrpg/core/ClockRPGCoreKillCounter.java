@@ -106,8 +106,8 @@ public class ClockRPGCoreKillCounter {
         }
 
         //上限設定
-        if (amount > 32767){
-            sender.sendMessage(plugin.prefix + "§3§l数が多すぎます");
+        if (amount > 2147483647){
+            sender.sendMessage(plugin.prefix + "§3§l2147483647以下にしてください");
             return;
         }
 

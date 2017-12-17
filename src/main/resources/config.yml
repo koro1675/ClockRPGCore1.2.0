@@ -4,7 +4,7 @@ config:
   port: portNumber
   database: databaseName
   username: userName
-  password: password
+  password:
   table: tableName
 
 

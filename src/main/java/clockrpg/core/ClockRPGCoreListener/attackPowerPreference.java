@@ -53,11 +53,21 @@ public class attackPowerPreference implements Listener {
             ResultSet result = statement.executeQuery();
             result.next();
 
+
+            //weaponTypeNameを変換
+            String weaponType = "";
+
+            if (weaponTypeName.equals("§f§l武器: 剣")){
+                weaponType = "sword";
+            } else if (weaponTypeName.equals("§f§l武器: 斧")){
+                weaponType = "axe";
+            }
+
             //武器種熟練度
-            int skillLevel = result.getInt(weaponTypeName.toUpperCase() + "LEVEL");
+            int skillLevel = result.getInt(weaponType.toUpperCase() + "LEVEL");
 
             //武器種熟練度から攻撃力を計算
-            double attackDamage = skillLevel * plugin.getConfig().getDouble("damageAmount");
+            double attackDamage = skillLevel * plugin.getConfig().getDouble("config.damageAmount");
 
             //攻撃力のセット
             setAttribute(player, Attribute.GENERIC_ATTACK_DAMAGE, attackDamage);
@@ -73,6 +83,7 @@ public class attackPowerPreference implements Listener {
         Attributable p = (Attributable) player;
         AttributeInstance ai = p.getAttribute(attribute);
         ai.setBaseValue(value);
+        player.sendMessage(plugin.prefix + value);
     }
 
 
@@ -96,17 +107,14 @@ public class attackPowerPreference implements Listener {
         //手持ちのItemMetaを取得
         ItemMeta itemMeta = itemStack.getItemMeta();
 
-        for (int roll = 0; itemMeta.getLore().size() < roll; roll++){
-
-            //武器種分回す
-            for (weaponType weaponType : weaponType.values()){
-
-                //武器に武器種が指定されている場合
-                if (itemMeta.getLore().contains(weaponType.getValue())){
-                    return attackPowerPreference.weaponType.axe.toString();
-                }
+        //武器種分回す
+        for (weaponType weaponType : weaponType.values()){
+             //武器に武器種が指定されている場合
+            if (itemMeta.getLore().contains(weaponType.getValue())){
+                return weaponType.getValue();
             }
         }
+
 
         return null;
     }

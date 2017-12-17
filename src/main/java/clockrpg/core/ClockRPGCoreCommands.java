@@ -11,11 +11,13 @@ public class ClockRPGCoreCommands implements CommandExecutor {
 
     ClockRPGCore plugin = ClockRPGCore.getPlugin(ClockRPGCore.class);
 
+
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand (CommandSender sender, Command command, String label, String[]args){
+
 
         // 実行者がconsoleの場合
-        if (sender instanceof Player == false){
+        if (sender instanceof Player == false) {
             sender.sendMessage("This Command Can BE Only Executed By Player");
             return false;
         }
@@ -23,7 +25,7 @@ public class ClockRPGCoreCommands implements CommandExecutor {
         Player player = (Player) sender;
 
         //引数がない場合
-        if (args.length == 0){
+        if (args.length == 0) {
             player.sendMessage(plugin.prefix + "§3§l/crpg [info, normalPlayer, redPlayer, blackPlayer, killCounter]");
             return false;
         }
@@ -32,27 +34,25 @@ public class ClockRPGCoreCommands implements CommandExecutor {
         /*********************
          * version
          *********************/
-        if (args[0].equalsIgnoreCase("ver")){
+        if (args[0].equalsIgnoreCase("ver")) {
             player.sendMessage(plugin.prefix + "§3§lClockRPGCore var1.2.0");
             return false;
         }
 
-
-
         /*********************
          * PlayerInfo
          *********************/
-        if (args[0].equalsIgnoreCase("info")){
+        if (args[0].equalsIgnoreCase("info")) {
 
             //引数が足りない場合
-            if (args.length != 2){
-                player.sendMessage(plugin.prefix + "§3§l/crpg info [player]");
+            if (args.length != 2) {
+                plugin.clockRPGCorePlayer.playerInfo(player, player);
                 return false;
             }
 
             //権限の確認
             if (!player.hasPermission(plugin.clockRPGCorePermissions.adminPermisson)
-                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandPlayer)){
+                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandPlayer)) {
                 player.sendMessage(plugin.prefix + "§4§lyou don't have permisssion");
                 return false;
             }
@@ -66,17 +66,17 @@ public class ClockRPGCoreCommands implements CommandExecutor {
         /*********************
          * redPlayer
          *********************/
-        if (args[0].equalsIgnoreCase("redPlayer")){
+        if (args[0].equalsIgnoreCase("redPlayer")) {
 
             //引数が足りない場合
-            if (args.length != 3){
+            if (args.length != 3) {
                 player.sendMessage(plugin.prefix + "§3§l/crpg redPlayer set [playerName]");
                 return false;
             }
 
             //権限の確認
             if (!player.hasPermission(plugin.clockRPGCorePermissions.adminPermisson)
-                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandPlayer)){
+                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandPlayer)) {
                 player.sendMessage(plugin.prefix + "§4§lyou don't have permisssion");
                 return false;
             }
@@ -84,7 +84,7 @@ public class ClockRPGCoreCommands implements CommandExecutor {
             Player playerName = Bukkit.getPlayer(args[2]);
 
             //set処理
-            if (args[1].equalsIgnoreCase("set")){
+            if (args[1].equalsIgnoreCase("set")) {
                 plugin.clockRPGCorePlayer.setRedPlayer(playerName);
                 return false;
             }
@@ -93,17 +93,17 @@ public class ClockRPGCoreCommands implements CommandExecutor {
         /*********************
          * blackPlayer
          *********************/
-        if (args[0].equalsIgnoreCase("blackPlayer")){
+        if (args[0].equalsIgnoreCase("blackPlayer")) {
 
             //引数が足りない場合
-            if (args.length != 3){
+            if (args.length != 3) {
                 player.sendMessage(plugin.prefix + "§3§l/crpg blackPlayer set [playerName]");
                 return false;
             }
 
             //権限の確認
             if (!player.hasPermission(plugin.clockRPGCorePermissions.adminPermisson)
-                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandPlayer)){
+                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandPlayer)) {
                 player.sendMessage(plugin.prefix + "§4§lyou don't have permisssion");
                 return false;
             }
@@ -112,7 +112,7 @@ public class ClockRPGCoreCommands implements CommandExecutor {
 
 
             //set処理
-            if (args[1].equalsIgnoreCase("set")){
+            if (args[1].equalsIgnoreCase("set")) {
                 plugin.clockRPGCorePlayer.setBlackPlayer(playerName);
                 return false;
             }
@@ -122,17 +122,16 @@ public class ClockRPGCoreCommands implements CommandExecutor {
         /*********************
          * normalPlayer
          *********************/
-        if (args[0].equalsIgnoreCase("normalPlayer")){
-
+        if (args[0].equalsIgnoreCase("normalPlayer")) {
             //引数が足りない場合
-            if (args.length != 3){
+            if (args.length != 3) {
                 player.sendMessage(plugin.prefix + "§3§l/crpg normalPlayer set [playerName]");
                 return false;
             }
 
             //権限の確認
             if (!player.hasPermission(plugin.clockRPGCorePermissions.adminPermisson)
-                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandPlayer)){
+                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandPlayer)) {
                 player.sendMessage(plugin.prefix + "§4§lyou don't have permisssion");
                 return false;
             }
@@ -141,7 +140,7 @@ public class ClockRPGCoreCommands implements CommandExecutor {
 
 
             //set処理
-            if (args[1].equalsIgnoreCase("set")){
+            if (args[1].equalsIgnoreCase("set")) {
                 plugin.clockRPGCorePlayer.setNormalPlayer(playerName);
                 return false;
             }
@@ -151,19 +150,19 @@ public class ClockRPGCoreCommands implements CommandExecutor {
         /*********************
          * killCounter
          *********************/
-        if (args[0].equalsIgnoreCase("killCounter")){
+        if (args[0].equalsIgnoreCase("killCounter")) {
 
 
             //権限の確認
             if (!player.hasPermission(plugin.clockRPGCorePermissions.adminPermisson)
-                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandKills)){
+                    || !player.hasPermission(plugin.clockRPGCorePermissions.commandKills)) {
                 player.sendMessage(plugin.prefix + "§4§lyou don't have permisssion");
                 return false;
             }
 
 
             //引数が足りない場合
-            if (args.length != 4){
+            if (args.length != 4) {
                 player.sendMessage(plugin.prefix + "§3§l/crpg killCounter set [playerName] [amount]");
                 return false;
             }
@@ -173,7 +172,7 @@ public class ClockRPGCoreCommands implements CommandExecutor {
             Integer amount = Integer.parseInt(args[3]);
 
             //set処理
-            if (args[1].equalsIgnoreCase("set")){
+            if (args[1].equalsIgnoreCase("set")) {
 
                 //処理
                 plugin.clockRPGCoreKillCounter.setKill(player, playerName, amount);

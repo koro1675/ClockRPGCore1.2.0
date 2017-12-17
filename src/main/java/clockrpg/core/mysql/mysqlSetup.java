@@ -23,17 +23,8 @@ public class mysqlSetup {
         port = plugin.getConfig().getInt("config.port");
         database = plugin.getConfig().getString("config.database");
         username = plugin.getConfig().getString("config.username");
-        password = "";
+        password = plugin.getConfig().getString("config.password");
         table = plugin.getConfig().getString("config.table");
-
-        Bukkit.getConsoleSender().sendMessage("host: " + plugin.getConfig().getString("config.host"));
-        Bukkit.getConsoleSender().sendMessage("port: " + plugin.getConfig().getInt("config.port"));
-        Bukkit.getConsoleSender().sendMessage("database: " + plugin.getConfig().getString("config.database"));
-        Bukkit.getConsoleSender().sendMessage("username: " + plugin.getConfig().getString("config.username"));
-        Bukkit.getConsoleSender().sendMessage("password: " + plugin.getConfig().getString("config.password"));
-        Bukkit.getConsoleSender().sendMessage("table: " + plugin.getConfig().getString("config.table"));
-
-
 
 
         try {

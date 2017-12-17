@@ -33,10 +33,13 @@ public class createPlayerData implements Listener {
                     .prepareStatement("SELECT * FROM " + plugin.mysqlSetup.table + " WHERE UUID=?");
             statement.setString(1, uuid.toString());
             ResultSet results = statement.executeQuery();
+
             if (results.next()) {
                 plugin.getServer().getLogger().info(player.getName() + ChatColor.GREEN + " FoundPlayerData");
                 return true;
             }
+
+
             plugin.getServer().getLogger().info(player.getName() + ChatColor.RED + " PlayerNotFound, CreatingPlayerData...");
 
         } catch (SQLException e) {

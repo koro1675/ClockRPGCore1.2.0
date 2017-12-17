@@ -39,6 +39,12 @@ public class ClockRPGCorePlayer {
                 blackPlayer = "false";
             }
 
+            //剣の攻撃力を取得
+            double sword = result.getInt("SWORDLEVEL") * plugin.getConfig().getDouble("config.damageAmount");
+
+            //斧の攻撃力を取得
+            double axe = result.getInt("AXELEVEL") * plugin.getConfig().getDouble("config.damageAmount");
+
 
             //表示
             sender.sendMessage(plugin.prefix);
@@ -52,13 +58,8 @@ public class ClockRPGCorePlayer {
             sender.sendMessage("§l|§7§lkillCounter: §5§l" + result.getInt("KILLCOUNTER"));
             sender.sendMessage("§l|§7§l剣熟練度: §5§l" + result.getInt("SWORDLEVEL"));
             sender.sendMessage("§l|§7§l斧熟練度: §5§l" + result.getInt("AXELEVEL"));
-            sender.sendMessage("§l|§7§l鎌熟練度: §5§l" + result.getInt("SICKLELEVEL"));
-            double sword = result.getInt("SWORDLEVEL") * plugin.getConfig().getDouble("damageAmount");
             sender.sendMessage("§l|§7§l剣攻撃力: §5§l+" + sword);
-            double axe = result.getInt("AXELEVEL") * plugin.getConfig().getDouble("damageAmount");
             sender.sendMessage("§l|§7§l斧攻撃力: §5§l+" + axe);
-            double sickle = result.getInt("SICKLELEVEL") * plugin.getConfig().getDouble("damageAmount");
-            sender.sendMessage("§l|§7§l鎌攻撃力: §5§l+" + sickle);
             sender.sendMessage("§7§m§l==================================================");
 
 
@@ -143,6 +144,7 @@ public class ClockRPGCorePlayer {
             ResultSet result = statement.executeQuery();
             result.next();
 
+            //ランクの確認
             if (result.getInt("REDPLAYER") == 0){
                 return true;
             }
@@ -164,6 +166,7 @@ public class ClockRPGCorePlayer {
             ResultSet result = statement.executeQuery();
             result.next();
 
+            //ランクの確認
             if (result.getInt("REDPLAYER") == 1 && result.getInt("BLACKPLAYER") == 0){
                 return true;
             }
@@ -185,6 +188,7 @@ public class ClockRPGCorePlayer {
             ResultSet result = statement.executeQuery();
             result.next();
 
+            //ランクの確認
             if (result.getInt("BLACKPLAYER") == 1){
                 return true;
             }

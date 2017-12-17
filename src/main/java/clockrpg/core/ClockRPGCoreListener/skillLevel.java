@@ -47,10 +47,18 @@ public class skillLevel implements Listener {
     void skillProcess(Player player){
 
         ItemStack itemStack = player.getInventory().getItemInMainHand();
-        ItemMeta itemMeta = itemStack.getItemMeta();
 
         //武器の種類
         String weaponTypeName = "";
+
+
+        //itemMetaがない場合
+        if (!itemStack.hasItemMeta()){
+            return;
+        }
+
+
+        ItemMeta itemMeta = itemStack.getItemMeta();
 
 
         //手に持っているアイテムに武器名が指定されている場合
@@ -75,7 +83,7 @@ public class skillLevel implements Listener {
         //kill数を1増やす
         try {
             PreparedStatement statement = plugin.mysqlSetup.getConnection()
-                    .prepareStatement("UPDATE " + plugin.mysqlSetup.table + " SET " + weaponTypeName.toUpperCase() + "KILL" + " WHERE UUID=?");
+                    .prepareStatement("UPDATE " + plugin.mysqlSetup.table + " SET " + weaponTypeName.toUpperCase() + "KILL=?" + " WHERE UUID=?");
             statement.setInt(1, getSkillKills(player, weaponTypeName) + 1);
             statement.setString(2, player.getUniqueId().toString());
             statement.executeUpdate();
@@ -102,6 +110,7 @@ public class skillLevel implements Listener {
     public void setSkillLevel(Player player, String skillName, Integer amount){
 
         String weaponTypeName = "";
+        String displayWeaponTypeName = "";
 
         //amountに-を指定できないようにする
         if (amount < 0){
@@ -113,9 +122,12 @@ public class skillLevel implements Listener {
         switch (skillName.toUpperCase()) {
             case "SWORD":
                 weaponTypeName = "sword";
+                //weaponTypeNameをDisplay用に変換
+                displayWeaponTypeName = "剣";
                 break;
             case "AXE":
                 weaponTypeName = "axe";
+                displayWeaponTypeName = "斧";
                 break;
             default:
                 Bukkit.getServer().broadcastMessage(plugin.prefix + "§3§lその引数は使えません");
@@ -125,7 +137,7 @@ public class skillLevel implements Listener {
         //処理
         try {
             PreparedStatement statement = plugin.mysqlSetup.getConnection()
-                    .prepareStatement("UPDATE " + plugin.mysqlSetup.table + " SET " + weaponTypeName.toUpperCase() + "LEVEL, " + weaponTypeName.toUpperCase() + "KILL" + " WHERE UUID=?");
+                    .prepareStatement("UPDATE " + plugin.mysqlSetup.table + " SET " + weaponTypeName.toUpperCase() + "LEVEL=?, " + weaponTypeName.toUpperCase() + "KILL=?" + " WHERE UUID=?");
             statement.setInt(1, amount);
             statement.setInt(2, 0);
             statement.setString(3, player.getUniqueId().toString());
@@ -135,6 +147,12 @@ public class skillLevel implements Listener {
         } catch (SQLException e){
             e.printStackTrace();
         }
+
+        //武器種熟練度から攻撃力を計算
+        double attackDamage = getSkillLevel(player, weaponTypeName) * plugin.getConfig().getDouble("config.damageAmount");
+
+        player.sendMessage(plugin.prefix + "§5§l" + displayWeaponTypeName + "熟練度が§6§l" + getSkillLevel(player, weaponTypeName) + "§5§lになりました！");
+        player.sendMessage("§a§l現在の" + displayWeaponTypeName + "攻撃力: +" + attackDamage);
     }
 
 

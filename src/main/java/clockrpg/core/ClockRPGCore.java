@@ -1,5 +1,6 @@
 package clockrpg.core;
 
+import clockrpg.core.ClockRPGCoreListener.*;
 import clockrpg.core.mysql.mysqlSetup;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,12 +29,14 @@ public final class ClockRPGCore extends JavaPlugin {
 
 
         //Listener定義
-        getServer().getPluginManager().registerEvents(new clockrpg.core.ClockRPGCoreListener.setDisplayName(),this);
-        getServer().getPluginManager().registerEvents(new clockrpg.core.ClockRPGCoreListener.skillLevel(),this);
-        getServer().getPluginManager().registerEvents(new clockrpg.core.ClockRPGCoreListener.killCounter(), this);
-        getServer().getPluginManager().registerEvents(new clockrpg.core.ClockRPGCoreListener.updatePlayerAddress(), this);
-        getServer().getPluginManager().registerEvents(new clockrpg.core.ClockRPGCoreListener.levelHealth(), this);
-        getServer().getPluginManager().registerEvents(new clockrpg.core.ClockRPGCoreListener.createPlayerData(), this);
+        getServer().getPluginManager().registerEvents(new setDisplayName(),this);
+        getServer().getPluginManager().registerEvents(new skillLevel(),this);
+        getServer().getPluginManager().registerEvents(new killCounter(), this);
+        getServer().getPluginManager().registerEvents(new updatePlayerAddress(), this);
+        getServer().getPluginManager().registerEvents(new levelHealth(), this);
+        getServer().getPluginManager().registerEvents(new createPlayerData(), this);
+        getServer().getPluginManager().registerEvents(new attackPowerPreference(), this);
+        getServer().getPluginManager().registerEvents(new getDropItem(), this);
 
 
         //データベースのセットアップ
