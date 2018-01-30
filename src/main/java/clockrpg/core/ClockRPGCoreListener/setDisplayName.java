@@ -5,6 +5,7 @@ import clockrpg.core.ClockRPGCore;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.sql.PreparedStatement;
@@ -16,7 +17,7 @@ public class setDisplayName implements Listener {
     ClockRPGCore plugin = ClockRPGCore.getPlugin(ClockRPGCore.class);
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e){
+    public void onChat(AsyncPlayerChatEvent e){
         setDisplayName(e.getPlayer());
     }
 

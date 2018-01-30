@@ -109,6 +109,7 @@ public class attackPowerPreference implements Listener {
 
         //武器種分回す
         for (weaponType weaponType : weaponType.values()){
+
              //武器に武器種が指定されている場合
             if (itemMeta.getLore().contains(weaponType.getValue())){
                 return weaponType.getValue();
